@@ -1,0 +1,14 @@
+{
+    "$schema": "https://json.schemastore.org/tsconfig",
+    "display": "Deno",
+  
+    "compilerOptions": {
+      "lib": ["deno.ns", "dom"],
+      "strict": true
+    },
+
+    "tasks": {
+        "test": "cd test; deno test -A test.ts"
+    }
+  }
+  

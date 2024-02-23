@@ -24,9 +24,13 @@ async function assertAsymmetric(
       includeFiles: true,
     })
   ) {
+    if (entry.path === p1) {
+      continue;
+    }
     const p = entry.path;
-    const suffix =  p.slice(p1.length - 1);
+    const suffix = p.slice(p1.length);
     const otherP = join(p2, suffix);
+
     const otherStats = await Deno.stat(otherP);
 
     const styledP = firstArgIsGot ? Colors.red(p) : Colors.green(p);
@@ -57,7 +61,6 @@ ${Colors.green(pContent)}`);
   }
 }
 
-
 export function assertFsSync(gotPath: string, expectedPath: string) {
   assertAsymmetricSync(gotPath, expectedPath, true);
   assertAsymmetricSync(expectedPath, gotPath, false);
@@ -81,9 +84,13 @@ function assertAsymmetricSync(
       includeFiles: true,
     })
   ) {
+    if (entry.path === p1) {
+      continue;
+    }
     const p = entry.path;
-    const suffix = p.slice(p1.length - 1);
+    const suffix = p.slice(p1.length);
     const otherP = join(p2, suffix);
+
     const otherStats = Deno.statSync(otherP);
 
     const styledP = firstArgIsGot ? Colors.red(p) : Colors.green(p);

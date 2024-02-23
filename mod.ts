@@ -34,7 +34,9 @@ async function assertAsymmetric(
     const otherStats = await Deno.stat(otherP);
 
     const styledP = firstArgIsGot ? Colors.red(p) : Colors.green(p);
-    const styledOtherP = firstArgIsGot ? Colors.green(p) : Colors.red(p);
+    const styledOtherP = firstArgIsGot
+      ? Colors.green(otherP)
+      : Colors.red(otherP);
 
     if (entry.isDirectory && !otherStats.isDirectory) {
       fail(
@@ -52,10 +54,10 @@ async function assertAsymmetric(
         fail(`Nonequal file contents at ${styledOtherP} and ${styledP}.
 
 ${styledOtherP}:
-${Colors.red(otherPContent)}
+${firstArgIsGot ? Colors.green(otherPContent) : Colors.red(otherPContent)}
 ----====-----=====------======-----=====----====----
 ${styledP}:
-${Colors.green(pContent)}`);
+${firstArgIsGot ? Colors.red(pContent) : Colors.green(pContent)}`);
       }
     }
   }
@@ -94,7 +96,9 @@ function assertAsymmetricSync(
     const otherStats = Deno.statSync(otherP);
 
     const styledP = firstArgIsGot ? Colors.red(p) : Colors.green(p);
-    const styledOtherP = firstArgIsGot ? Colors.green(p) : Colors.red(p);
+    const styledOtherP = firstArgIsGot
+      ? Colors.green(otherP)
+      : Colors.red(otherP);
 
     if (entry.isDirectory && !otherStats.isDirectory) {
       fail(
@@ -112,10 +116,10 @@ function assertAsymmetricSync(
         fail(`Nonequal file contents at ${styledOtherP} and ${styledP}.
 
 ${styledOtherP}:
-${Colors.red(otherPContent)}
+${firstArgIsGot ? Colors.green(otherPContent) : Colors.red(otherPContent)}
 ----====-----=====------======-----=====----====----
 ${styledP}:
-${Colors.green(pContent)}`);
+${firstArgIsGot ? Colors.red(pContent) : Colors.green(pContent)}`);
       }
     }
   }
